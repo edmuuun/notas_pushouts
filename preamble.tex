@@ -1,0 +1,46 @@
+\documentclass[brazilian]{article}
+
+\usepackage{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.35in]{geometry}
+\usepackage{mathtools,amssymb,amsthm}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{tikz-cd}
+\usepackage{graphicx}
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\usetikzlibrary{babel}
+
+\swapnumbers
+\newtheorem{teo}{Teorema}[section]
+\newtheorem{prop}[teo]{Proposição}
+\newtheorem{lema}[teo]{Lema}
+\newtheorem{corol}[teo]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defin}[teo]{Definição}
+\newtheorem{obs}[teo]{Observação}
+\newtheorem{exem}[teo]{Exemplo}
+\newtheorem{exer}[teo]{Exercício}
+
+\swapnumbers
+
+%Um ambiente do estilo Exercício, porém com numeração customizada.
+\newtheorem{exernuminner}{Exercício}
+\newenvironment{exernum}[1]{%
+	\renewcommand\theexernuminner{#1}
+	\exernuminner
+}{\endexernuminner}
+
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\Abs}{\lVert}{\rVert}
+
+\newcommand{\reg}[1]{#1_{\mathrm{reg}}}
+\newcommand{\id}{\mathrm{id}}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\title{Notas sobre pushouts}
+\author{Edmundo Martins}
+\date{\today}

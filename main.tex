@@ -1,0 +1,198 @@
+\input{preamble}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    Estas notas contêm uma exposição básica do conceito categórico de pushout.
+    O foco principal de estudo são pushouts na categorias de espaços e funções contínuas, mas isso naturalmente requer o estudo de algumas propriedades gerais de pushouts, assim como o estudo de propriedades particulares de pushouts na categoria de conjuntos.
+    Após isso, aplicamos os resultados obtidos para obter propriedades de algumas construções topológicas que aparecem com frequência na Topologia Algébrica.
+\end{abstract}
+
+\tableofcontents
+
+\section{Pushouts gerais}
+
+Seja $\mathsf{C}$ uma categoria arbitrária.
+Dizemos que um quadrado comutativo em $\mathsf{C}$ da forma
+\begin{equation}\label{eq:diagrama_pushout}
+    \begin{tikzcd}
+        w
+        \arrow[r, "\alpha"]
+        \arrow[d, "\beta" swap]
+        & x
+        \arrow[d, "g"]
+        \\ y
+        \arrow[r, "f" swap]
+        & z
+    \end{tikzcd}
+\end{equation}
+é um \textbf{pushout} se ele satisfaz a seguinte propriedade universal: se $z'$ é outro objeto, e $g': x \to z$ e $f': y \to z'$ são morfismos tais que $g' \circ \alpha' = f' \circ \beta'$, ou seja, tais que o diagrama abaixo seja comutativo;
+\begin{displaymath}
+    \begin{tikzcd}
+        w
+        \arrow[r, "\alpha"]
+        \arrow[d, "\beta" swap]
+        & x
+        \arrow[d, "g"]
+        \arrow[rdd, bend left=15, "g'"]
+        \\ y
+        \arrow[r, "f" swap]
+        \arrow[rrd, bend right=15, "f'" swap]
+        & z
+        \\ & & z'
+    \end{tikzcd}
+\end{displaymath}
+então existe um \emph{único} morfismo $\theta: z \to z'$ que satisfaça as igualdades $\theta \circ g = g'$ e $\theta \circ f = f'$, ou seja, que faça o diagrama abaixo comutar.
+\begin{displaymath}
+    \begin{tikzcd}
+        w
+        \arrow[r, "\alpha"]
+        \arrow[d, "\beta" swap]
+        & x
+        \arrow[d, "g"]
+        \arrow[rdd, bend left=15, "g'"]
+        \\ y
+        \arrow[r, "f" swap]
+        \arrow[rrd, bend right=15, "f'" swap]
+        & z
+        \arrow[rd, dashed, "\theta" description]
+        \\ & & z'
+    \end{tikzcd}
+\end{displaymath}
+
+Por vezes, diremos também que o diagrama
+\begin{equation}\label{eq:diagrama_pre-pushout}
+    \begin{tikzcd}
+        w
+        \arrow[r, "\alpha"]
+        \arrow[d, "\beta" swap]
+        & x
+        \\ y
+    \end{tikzcd}
+\end{equation}
+é um \textbf{diagrama de pré-pushout}, e que a tripla $(z,g,f)$ é um pushout do diagrama \eqref{eq:diagrama_pre-pushout}.
+
+Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa propriedade de unicidade a menos de isomorfismos.
+
+\begin{prop}
+    Suponha que os dois diagramas abaixo sejam pushouts em uma categoria $\mathsf{C}$.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \\ y
+            \arrow[r, "f" swap]
+            & z
+        \end{tikzcd}
+        \qquad
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g'"]
+            \\ y
+            \arrow[r, "f'" swap]
+            & z'
+        \end{tikzcd}
+    \end{displaymath}
+    Então existe um \emph{único} isomorfismo $\theta: z \to z'$ satisfazendo as igualdades $\theta \circ g = g'$ e $\theta \circ f = f'$.
+\end{prop}
+
+\begin{proof}
+    Começamos com uma observação simples mas de extrema importância.
+    Note que o morfismo $\id_z: z \to z$ faz o diagrama abaixo comutar.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \arrow[rdd, bend left=15, "g"]
+            \\ y
+            \arrow[r, "f" swap]
+            \arrow[rrd, bend right=15, "f" swap]
+            & z
+            \arrow[rd, "\id_z" description]
+            \\ & & z
+        \end{tikzcd}
+    \end{displaymath}
+    A propriedade universal do pushout no entanto garante que $\id_z$ é na verdade o \emph{único} morfismo do tipo $z \to z$ que faz tal diagrama comutar.
+    Assim, se $\varphi: z \to z$ é um morfismo que satisfaz as igualdades $\varphi \circ g = g$ e $\varphi \circ f = f$, então necessariamente devemos ter $\varphi = \id_z$.
+
+    Vamos agora obter o isomorfismo em questão.
+    A propriedade universal do pushout garante a existência de um único morfismo $\theta: z \to z'$ fazendo o diagrama abaixo comutar.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \arrow[rdd, bend left=15, "g'"]
+            \\ y
+            \arrow[r, "f" swap]
+            \arrow[rrd, bend right=15, "f'" swap]
+            & z
+            \arrow[rd, dashed, "\theta" description]
+            \\ & & z'
+        \end{tikzcd}
+    \end{displaymath}
+    
+    Veja que $\theta$ satisfaz as duas igualdades impostas pelo enunciado.
+    Resta então mostrarmos que esse morfismo é na verdade um isomorfismo, e para isso vamos exibir explicitamente o morfismo inverso.
+    Usando novamente a propriedade universal do pushout obtemos o único morfismo $\theta': z' \to z$ fazendo o diagram abaixo comutar.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g'"]
+            \arrow[rdd, bend left=15, "g"]
+            \\ y
+            \arrow[r, "f'" swap]
+            \arrow[rrd, bend right=15, "f" swap]
+            & z'
+            \arrow[rd, dashed, "\theta'" description]
+            \\ & & z
+        \end{tikzcd}
+    \end{displaymath}
+
+    Vamos mostrar que $\theta$ e $\theta'$ são inversos.
+    O truque para mostrarmos a igualdade $\theta' \circ \theta = \id_z$ é usar a caracterização do morfismo idêntico $\id_z$ dada no primeiro parágrafo.
+    Por um lado,
+    \begin{displaymath}
+        \theta' \circ \theta \circ f
+        = \theta' \circ f' = f,
+    \end{displaymath}
+    e analogamente,
+    \begin{displaymath}
+        \theta' \circ \theta \circ g
+        = \theta' \circ g'
+        = g.
+    \end{displaymath}S
+    Segue então da conclusao do primeiro parágrafo que $\theta' \circ \theta = \id_z$.
+    A demonstração da validade da igualdade $\theta \circ \theta' = \id_{z'}$ é similar, pois, analogamente ao que ocorre com $\id_z$, o morfismo $\id_{z'}$ é caracterizado unicamente por satisfazer as igualdades $\id_{z'} \circ g' = g'$ e $\id_{z'} \circ f' = f'$.
+    Assim, as sequências de igualdades
+    \begin{displaymath}
+        \theta \circ \theta' \circ g'
+        = \theta \circ g
+        = g'
+    \end{displaymath}
+    e
+    \begin{displaymath}
+        \theta \circ \theta' \circ f'
+        = \theta \circ f
+        = f'
+    \end{displaymath}
+    implicam imediatamente a igualdade desejada.
+\end{proof}
+
+\end{document}
