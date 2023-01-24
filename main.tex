@@ -195,4 +195,61 @@ Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa
     implicam imediatamente a igualdade desejada.
 \end{proof}
 
+Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já podemos estudar um exemplo geral que pode ser especializado para diferentes contextos.
+
+\begin{exem}
+    Seja $\mathsf{C}$ uma categoria contendo um objeto inicial $0 \in \mathsf{C}$.
+    Dados dois objetos quaisquer $x,\, y \in \mathsf{C}$, temos os morfismos únicos $!_x: 0 \to x$ e $!_y: 0 \to y$ associados ao objeto inicial em questão.
+    Suponha que o diagrama de pré-pushout
+    \begin{displaymath}
+        \begin{tikzcd}
+            0
+            \arrow[r, "!_x"]
+            \arrow[d, "!_y" swap]
+            & x
+            \\ y
+        \end{tikzcd}
+    \end{displaymath}
+    admita um pushout como abaixo.
+    \begin{displaymath}
+        \begin{tikzcd}
+            0
+            \arrow[r, "!_x"]
+            \arrow[d, "!_y" swap]
+            & x
+            \arrow[d, "i"]
+            \\ y
+            \arrow[r, "j" swap]
+            & z
+        \end{tikzcd}
+    \end{displaymath}
+
+    Afirmamos que nesse caso $z$ é um \emph{coproduto} dos objetos $x$ e $y$, sendo $i$ e $j$ as injeções canônicas.
+    Podemos mostrar isso simplesmente verificando que a propriedade universal do coproduto é satisfeita.
+    Seja $z'$ um outro objeto de $\mathsf{C}$ equipado com morfismos $i': x \to z'$ e $j': y \to z'$.
+    Como existe um único morfismo do tipo $0 \to z'$, os morfismos compostos $i' \circ !_x,\, j' \circ j' \circ !_y: 0 \to z'$ são iguais, ou seja, o ``quadrado externo'' no diagrama abaixo é comutativo.
+    A propriedade universal do coproduto implica então a existência de um único morfismo $h:z \to z'$ fazendo o diagrama todo comutar.
+    \begin{displaymath}
+        \begin{tikzcd}
+            0
+            \arrow[r, "!_x"]
+            \arrow[d, "!_y" swap]
+            & x
+            \arrow[d, "i"]
+            \arrow[rdd, bend left=15, "i'"]
+            \\ y
+            \arrow[r, "j" swap]
+            \arrow[rrd, bend right=15, "j'" swap]
+            & z
+            \arrow[rd, dashed, "h" description]
+            \\ & & z'
+        \end{tikzcd}
+    \end{displaymath}
+    Em outras palavras, os morfismos $i'$ e $j'$ podem ser unicamente fatorados pelos morfismos $i$ e $j$, respectivamente, o que significa precisamente que a triple $(z,i,j)$ é um coproduto dos objetos $x$ e $y$.
+
+    Esse exemplo mostra que, em uma categoria que tenha um objeto inicial, coprodutos podem ser vistos como pushouts.
+    Dito de outra forma, um pushout pode ser visto como uma generalização de um coproduto.
+    Mais adiante, veremos inclusive que, em categorias suficientemente ricas, pushouts podem ser construídos \emph{a partir} de coprodutos usando um certo tipo de quociente.
+\end{exem}
+
 \end{document}
