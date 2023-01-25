@@ -76,7 +76,7 @@ Por vezes, diremos também que o diagrama
 
 Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa propriedade de unicidade a menos de isomorfismos.
 
-\begin{prop}
+\begin{prop}\label{prop:unicidade_pushout}
     Suponha que os dois diagramas abaixo sejam pushouts em uma categoria $\mathsf{C}$.
     \begin{displaymath}
         \begin{tikzcd}
@@ -350,7 +350,6 @@ O primeiro resultado oferece uma receita para a construção de pushouts em cate
         \end{cases}
     \end{displaymath}
     
-    
     Vamos então construir o morfismo desejado.
     Como por hipótese $p$ satisfaz a igualdade $p \circ i_1 \circ \alpha = p \circ i_2 \circ \beta$, o ``quadrado exterior'' no diagrama abaixo é comutativo, portanto a propriedade universal do pushout garante a existência de um único morfismo $h: z \to z'$ fazendo o diagrama todo comutar.
     \begin{displaymath}
@@ -407,6 +406,118 @@ O primeiro resultado oferece uma receita para a construção de pushouts em cate
         = i_1,
     \end{displaymath}
     e analgoamente também podemos mostrar que $h \circ p \circ i_2 = j_2$; portanto $h$ é exatamente o morfismo desejado.
+\end{proof}
+
+Nosso próximo resultado mostra quais propriedades de um morfismo são preservadas em um diagrama de pushout.
+
+\begin{teo}\label{teo:props_preservadas_pushout}
+    Considere o diagrama de pushout abaixo em uma categoria qualquer $\mathsf{C}$.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \\ y
+            \arrow[r, "f" swap]
+            & z
+        \end{tikzcd}
+    \end{displaymath}
+    As seguintes afirmações são verdadeiras:
+    \begin{enumerate}
+        \item[(a)] se $\beta$ é um epimorfismo, então $g$ é um epimorfismo;
+
+        \item[(b)] se $\beta$ é um isomorfismo, então $g$ é um isomorfismo.
+    \end{enumerate}
+\end{teo}
+
+\begin{proof}
+    (a) Dados dois morfismos $\varphi,\, \psi: z \to z'$ tais que $\varphi \circ g = \psi \circ g$, precismos mostrar que $\varphi = \psi$.
+    Note que, como $(\varphi \circ g) \circ \alpha = (\varphi \circ f) \circ \beta$, a propriedade universal do pushout garante que $\varphi$ é o único morfismo do tipo $z \to z'$ que faz o diagrama abaixo comutar.
+    \begin{equation}\label{eq:pushout_preserva_epi_1}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \arrow[rdd, bend left=15, "\varphi \circ g"]
+            \\ y
+            \arrow[r, "f" swap]
+            \arrow[rrd, bend right=15, "\varphi \circ f" swap]
+            & z
+            \arrow[rd, "\varphi" description]
+            \\ & & z'
+        \end{tikzcd}
+    \end{equation}
+    Analogamente, o morfismo $\psi$ é o único que faz o diagrama abaixo comutar.
+    \begin{equation}\label{eq:pushout_preserva_epi_2}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \arrow[rdd, bend left=15, "\psi \circ g"]
+            \\ y
+            \arrow[r, "f" swap]
+            \arrow[rrd, bend right=15, "\psi \circ f" swap]
+            & z
+            \arrow[rd, "\psi" description]
+            \\ & & z'
+        \end{tikzcd}
+    \end{equation}
+
+    Perceba que os diagramas \eqref{eq:pushout_preserva_epi_1} e \eqref{eq:pushout_preserva_epi_2} não são tão diferentes assim, já que por hipótese os morfismos $\varphi \circ g$ e $\psi \circ g$ são iguais.
+    Se mostrarmos que os morfismos $\varphi \circ f$ e $\psi \circ g$ também são iguais, então $\varphi$ e $\psi$ serão ambos induzidos pela propriedade universal de um mesmo diagrama de pushout, o que implica a igualdade $\varphi = \psi$.
+    Usando a comutatividade do diagrama de pushout do enunciado vemos que
+    \begin{align*}
+        \varphi \circ f \circ \beta
+        & = \varphi \circ g \circ \alpha \\
+        & = \psi \circ g \circ \alpha \\
+        & = \psi \circ f \circ \beta,
+    \end{align*}
+    e sendo $\beta$ um epimorfismo por hipótese, segue da igualdade acima que $\varphi \circ f = \psi \circ f$ como desejávamos mostrar.
+
+    \smallskip
+    (b) Considere o morfismo inverso $\beta^{-1}: y \to w$.
+    Como $(\alpha \circ \beta^{-1}) \circ \beta = \id_x \circ \alpha$, o quadrado externo no diagram abaixo é comutativo, e a propriedade universal do pushout implica então a existência de um único morfismo $h: z \to x$ fazendo comutar o diagrama todo.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \arrow[rdd, bend left=15, "\id_x"]
+            \\ y
+            \arrow[r, "f" swap]
+            \arrow[rrd, bend right=15, "\alpha \circ \beta^{-1}" swap]
+            & z
+            \arrow[rd, dashed, "h" description]
+            \\ & & x
+        \end{tikzcd}
+    \end{displaymath}
+
+    Vamos mostrar que $h$ é o morfismo inverso de $g$.
+    Perceba que a igualdade $h \circ g = \id_x$ segue imediatamente da comutatividade do diagrama acima, restando apenas mostrarmos a igualdades $g \circ h = \id_z$.
+    Lembre agora que, como discutido no primeiro parágrafo da demonstração da \cref{prop:unicidade_pushout}, o morfismo idêntico $\id_z$ é o único do tipo $z \to z$ que satisfaz as igualdades $\id_z \circ f = f$ e $\id_z \circ g = g$.
+    Note, entretanto, que por um lado
+    \begin{align*}
+        g \circ h \circ f
+        & = g \circ \alpha \circ \beta^{-1} \\
+        & = f \circ \beta \circ \beta^{-1} \\
+        & = f \circ \id_y \\
+        & = f,
+    \end{align*}
+    e por outro
+    \begin{displaymath}
+        g \circ h \circ g
+        = g \circ \id_x
+        = g.
+    \end{displaymath}
+    Segue então dessas duas igualdades e da observação anterior que $g \circ h = \id_z$.
 \end{proof}
 
 \end{document}
