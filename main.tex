@@ -252,4 +252,161 @@ Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já
     Mais adiante, veremos inclusive que, em categorias suficientemente ricas, pushouts podem ser construídos \emph{a partir} de coprodutos usando um certo tipo de quociente.
 \end{exem}
 
+\subsection{Propriedades gerais}
+
+O objetivo dessa seção é demonstrar algumas propriedades de pushouts que são válidas em qualquer categoria.
+Posteriormente, estudaremos pushouts em exemplos particulares de categorias e teremos a oportunidade de aplicar tais resultados a exemplos concretos.
+
+O primeiro resultado oferece uma receita para a construção de pushouts em categorias suficientemente ricas relacionando-o com coprodutos e coequalizadores.
+
+\begin{teo}
+   Considere o diagrama abaixo em uma categoria $\mathsf{C}$.
+   \begin{displaymath}
+    \begin{tikzcd}
+        w
+        \arrow[r, "\alpha"]
+        \arrow[d, "\beta" swap]
+        & x
+        \\ y
+    \end{tikzcd}
+   \end{displaymath}
+   Suponha que os objetos $x$ e $y$ admitam um coproduto $x+y$ com injeções canônicas $i_1: x \to x + y$ e $i_2: y \to x+y$.
+   Nesse contexto, o diagrama acima admite um pushout se, e somente se, o par de morfismos paralelos
+   \begin{displaymath}
+    \begin{tikzcd}
+        w
+        \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
+        \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
+        & x+y
+    \end{tikzcd}
+   \end{displaymath}
+   admite um coequalizador.
+\end{teo}
+
+\begin{proof}
+    Suponha inicialmente que exista um pushout como abaixo.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \\ y
+            \arrow[r, "f" swap]
+            & z
+        \end{tikzcd}
+    \end{displaymath}
+    Os morfismos $g$ e $f$ induzem um morfismo $\langle g,f \rangle: x +y \to z$ por meio da propriedade universal do coproduto.
+    Vamos mostrar que esse morfismo induzido é o coequalizador desejado.
+    Note, em primeiro lugar, que ele coequaliza os morfismos necessários, pois
+    \begin{align*}
+        \langle g,f \rangle \circ i_1 \circ \alpha
+        & = g \circ \alpha \\
+        & = f \circ \beta \\
+        & = \langle g,f \rangle \circ i_2 \circ \beta.
+    \end{align*}
+    Em outras palavras, temos o diagrama comutativo abaixo.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
+            \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
+            & x+y
+            \arrow[r, "{\langle g,f \rangle}"]
+            & z
+        \end{tikzcd}
+    \end{displaymath}
+
+    Precisamos mostrar que, se $p: x+y \to z'$ é outro morfismo coequalizando $i_1 \circ \alpha$ e $i_2 \circ \beta$, então existe um único morfismo $h: z \to z'$ tal que $h \circ \langle g,f \rangle = p$.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
+            \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
+            & x+y
+            \arrow[r, "{\langle g,f \rangle}"]
+            \arrow[rd, "p" swap]
+            & z
+            \arrow[d, dashed, "h"]
+            \\ & & z'
+        \end{tikzcd}
+    \end{displaymath}
+    Note que, como os morfismos $p$ e $h \circ \langle g,f \rangle$ têm como domínio o coproduto $x+y$, a propriedade universal do produto garante a seguinte equaivalência:
+    \begin{displaymath}
+        p = h \circ \langle g,f \rangle
+        \iff
+        \begin{cases}
+            p \circ i_1 = h \circ \langle g,f \rangle \circ i_1 \\
+            p \circ i_2 = h \circ \langle g,f \rangle \circ i_2.
+        \end{cases}
+    \end{displaymath}
+    Usando as igualdades que definem o morfismo induzido $\langle g,f \rangle$, a equivalência acima pode ser reescrita da seguinte maneira:
+    \begin{displaymath}
+        p = h \circ \langle g,f \rangle \iff
+        \begin{cases}
+            p \circ i_1 = h \circ g \\
+            p \circ i_2 = h \circ f.
+        \end{cases}
+    \end{displaymath}
+    
+    
+    Vamos então construir o morfismo desejado.
+    Como por hipótese $p$ satisfaz a igualdade $p \circ i_1 \circ \alpha = p \circ i_2 \circ \beta$, o ``quadrado exterior'' no diagrama abaixo é comutativo, portanto a propriedade universal do pushout garante a existência de um único morfismo $h: z \to z'$ fazendo o diagrama todo comutar.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "g"]
+            \arrow[rdd, bend left=15, "p \circ i_1"]
+            \\ y
+            \arrow[r, "f" swap]
+            \arrow[rrd, bend right=15, "p \circ i_2" swap]
+            & z
+            \arrow[rd, dashed, "h" description]
+            \\ & & z'
+        \end{tikzcd}
+    \end{displaymath}
+    Segue da comutatividade do diagrama que esse único morfismo $h$ é exatamente o morfismo procurado.
+
+    Reciprocamente, suponha agora que os morfismos $i_1 \circ \alpha,\, i_2 \circ \beta: w \to x+y$ admitam um coequalizador $p: x+y \to z$.
+    Vamos mostrar então que o diagrama abaixo é um pushout.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, "\alpha"]
+            \arrow[d, "\beta" swap]
+            & x
+            \arrow[d, "p \circ i_1"]
+            \\ y
+            \arrow[r, "p \circ i_2" swap]
+            & z
+        \end{tikzcd}
+    \end{displaymath}
+    Seja $z'$ um outro objeto juntamente com morfismos $j_1: x \to z'$ e $j_2: y \to z'$ satisfazendo a igualdade $j_1 \circ \alpha = j_2 \circ \beta$.
+    Isso garante que o morfismo $\langle j_1,j_2 \rangle: x+y \to z'$ induzido pela propriedade universal do coproduto coequaliza os morfismos paralelos $i_1 \circ \alpha$ e $i_2 \circ \beta$; portanto a propriedade universal do coequalizador garante a existência de um único morfismo $h: z \to z'$ fazendo o diagram abaixo comutar.
+    \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
+            \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
+            & x+y
+            \arrow[r, "p"]
+            \arrow[rd, "{\langle j_1,j_2 \rangle}" swap]
+            & z
+            \arrow[d, dashed, "h"]
+            \\ & & z'
+        \end{tikzcd}
+    \end{displaymath}
+    Vemos então que
+    \begin{displaymath}
+        h \circ p \circ i_1
+        = \langle j_1,j_2 \rangle \circ i_1
+        = i_1,
+    \end{displaymath}
+    e analgoamente também podemos mostrar que $h \circ p \circ i_2 = j_2$; portanto $h$ é exatamente o morfismo desejado.
+\end{proof}
+
 \end{document}
