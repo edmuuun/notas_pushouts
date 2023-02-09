@@ -6,7 +6,7 @@
 
 \begin{abstract}
     Estas notas contêm uma exposição básica do conceito categórico de pushout.
-    O foco principal de estudo são pushouts na categorias de espaços e funções contínuas, mas isso naturalmente requer o estudo de algumas propriedades gerais de pushouts, assim como o estudo de propriedades particulares de pushouts na categoria de conjuntos.
+    O foco principal de estudo são pushqouts na categorias de espaços e funções contínuas, mas isso naturalmente requer o estudo de algumas propriedades gerais de pushouts, assim como o estudo de propriedades particulares de pushouts na categoria de conjuntos.
     Após isso, aplicamos os resultados obtidos para obter propriedades de algumas construções topológicas que aparecem com frequência na Topologia Algébrica.
 \end{abstract}
 
@@ -518,6 +518,122 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
         = g.
     \end{displaymath}
     Segue então dessas duas igualdades e da observação anterior que $g \circ h = \id_z$.
-\end{proof}
+ \end{proof}
+
+ O próximo resultado mostra como pushouts podem ser combinados para obtermos novos pushouts.
+
+ \begin{teo}[Lei de colagem para pushouts]
+   Considere o diagrama comutativo abaixo em uma categoria qualquer $\mathsf{C}$,
+   \begin{equation}\label{eq:colagem-pushout-diag-1}
+     \begin{tikzcd}
+       u
+       \arrow[r, "\alpha"]
+       \arrow[d, "f" swap]
+       & v
+       \arrow[r, "\beta"]
+       \arrow[d, "g" swap]
+       & w
+       \arrow[d, "h"]
+       \\ x
+       \arrow[r, "\gamma" swap]
+       & y
+       \arrow[r, "\delta" swap]
+       & z
+     \end{tikzcd}
+   \end{equation}
+   e considere também o diagrama abaixo obtido pela ``colagem'' dos dois quadrados comutativos acima.
+   \begin{equation}\label{eq:colagem-pushout-diag-2}
+     \begin{tikzcd}
+       u
+       \arrow[r, "\beta \circ \alpha"]
+       \arrow[d, "f" swap]
+       & w
+       \arrow[d, "h"]
+       \\ x
+       \arrow[r, "\delta \circ \gamma" swap]
+       & z
+     \end{tikzcd}
+   \end{equation}
+
+   Se no diagrama \eqref{eq:colagem-pushout-diag-1} o quadrado da esquerda é um pushout, então as seguintes afirmações são equivalentes:
+   \begin{enumerate}
+   \item o quadrado da direita no diagrama \eqref{eq:colagem-pushout-diag-2} é um pushout;
+   \item o diagrama \eqref{eq:colagem-pushout-diag-2} é um pushout.
+   \end{enumerate}
+ \end{teo}
+
+ \begin{proof}
+   Suponhamos primeiro que o quadrado da direita no diagrama \eqref{eq:colagem-pushout-diag-1} seja um pushout.
+   A fim de mostrarmos que o diagrama \eqref{eq:colagem-pushout-diag-2} é também um pushout, considere um outro objeto $z'$ juntamente com morfismos $\varphi: w \to z'$ e $\psi: x \to z'$ satisfazendo a igualdade $\varphi \circ \beta \circ \alpha = \psi \circ f$, como mostrado abaixo.
+   \begin{displaymath}
+     \begin{tikzcd}
+        u
+       \arrow[r, "\beta \circ \alpha"]
+       \arrow[d, "f" swap]
+       & w
+       \arrow[d, "h"]
+       \arrow[rdd, bend left=15, "\varphi"]
+       \\ x
+       \arrow[r, "\delta \circ \gamma" swap]
+       \arrow[rrd, bend right=15, "\psi" swap]
+       & z
+       \\ & & z'
+     \end{tikzcd}
+   \end{displaymath}
+
+   Note que a ``camada externa'' do diagrama abaixo também é comutativa, e como o quadrado esquerdo em \eqref{eq:colagem-pushout-diag-1} é um pushout, obtemos um único morfismo $\lambda: y \to z'$ fazendo comutar todo o diagram abaixo.
+   \begin{displaymath}
+     \begin{tikzcd}
+       u
+       \arrow[r, "\alpha"]
+       \arrow[d, "f" swap]
+       & v
+       \arrow[d, "g"]
+       \arrow[rdd, bend left=15, "\varphi \circ \beta"]
+       \\ x
+       \arrow[r, "\gamma" swap]
+       \arrow[rrd, bend right=15, "\psi" swap]
+       & y
+       \arrow[rd, dashed, "\lambda" description]
+       \\ & & z'
+     \end{tikzcd}
+   \end{displaymath}
+   O morfismo $\lambda$ por sua vez faz comutar a camada externa do diagrama abaixo, e como o quadrado direito em \eqref{eq:colagem-pushout-diag-2} é também um pushout por hipótese, obtemos um único morfismo $\theta: z \to z'$ fazendo comutar todo o diagrama.
+   \begin{displaymath}
+     \begin{tikzcd}
+       v
+       \arrow[r, "\beta"]
+       \arrow[d, "g" swap]
+       & w
+       \arrow[rdd, bend left=15, "\varphi"]
+       \arrow[d, "h"]
+       \\ y
+       \arrow[r, "\delta" swap]
+       \arrow[rrd, bend right=15, "\lambda" swap]
+       & z
+       \arrow[rd, dashed, "\theta" description]
+       \\ & & z'
+     \end{tikzcd}
+   \end{displaymath}
+
+   Veja que a igualdade $\theta \circ h = \varphi$ segue imediatamente da comutatividade acima.
+   Além disso, também temos
+   \begin{displaymath}
+     \theta \circ \delta \circ \gamma
+     = \lambda \circ \gamma
+     = \psi,
+   \end{displaymath}
+   onde a primeira igualdade segue da definição de $\theta$, e a segunda segue da definição de $\lambda$.
+   Isso significa que o morfismo $\theta$ satisfaz as condições de comutatividade necessárias, mas ainda temos que mostrar que ele é o único possuindo tais propriedades.
+   Suponha então que $\theta': z \to z'$ seja outro morfismo satisfazendo as igualdades $\theta' \circ h = \varphi$ e $\theta' \circ \delta \circ \gamma = \psi$.
+   Usando a forma como $\theta$ foi definido, é suficiente mostrarmos que $\theta'$ também satisfaz a igualdade $\theta' \circ \delta = \lambda$.
+   O morfismo $\lambda$, por sua vez, é unicamente caracterizado pelas igualdades $\lambda \circ \gamma = \psi$ e $\lambda \circ g = \varphi \circ \beta$.
+   Ora, por um lado $\theta'$ ja satisfaz a igualdade $\theta' \circ \delta \circ \gamma = \psi$ por hipótese, e por outro
+   \begin{displaymath}
+     \theta' \circ \delta \circ g = \theta' \circ h \circ \beta = \varphi \circ \beta,
+   \end{displaymath}
+   sendo que a primeira igualdade segue da comutatividade do quadrado direito em \eqref{eq:colagem-pushout-diag-1}, enquanto a segunda vale por hipótese.
+   Deduzimos disso que $\theta' \circ \delta = \lambda$, o que juntamente com a igualdade $\theta' \circ h = \varphi$ implica a igualdade $\theta' = \theta$ desejada.
+ \end{proof}
 
 \end{document}
