@@ -14,65 +14,89 @@
 
 \section{Pushouts gerais}
 
-Seja $\mathsf{C}$ uma categoria arbitrária.
-Dizemos que um quadrado comutativo em $\mathsf{C}$ da forma
-\begin{equation}\label{eq:diagrama_pushout}
+\begin{defin}\label{defin:span}
+  Um \textbf{span} em uma categoria qualquer $\mathsf{C}$ é um diagrama da forma
+  \begin{equation}
+    \label{eq:diagrama_span}
     \begin{tikzcd}
-        w
-        \arrow[r, "\alpha"]
-        \arrow[d, "\beta" swap]
-        & x
-        \arrow[d, "g"]
-        \\ y
-        \arrow[r, "f" swap]
-        & z
+      w
+      \arrow[r, "\alpha"]
+      \arrow[d, "\beta" swap]
+      & x
+      \\ y
     \end{tikzcd}
+  \end{equation}
+  onde $w$, $x$ e $y$ são objetos de $\mathsf{C}$, e $\alpha$ e $\beta$ são morfismos desta mesma categoria.
+\end{defin}
+
+\begin{defin}
+  Dizemos que um span
+  \begin{displaymath}
+    \begin{tikzcd}
+      w
+      \arrow[r, "\alpha"]
+      \arrow[d, "\beta" swap]
+      & x
+      \\ y
+    \end{tikzcd}
+  \end{displaymath}
+  em uma categoria $\mathsf{C}$ \textbf{admite um pushout} se existem um objeto $z \in \mathsf{C}$ e morfismos $f: x \to z$ e $g: y \to z$ tais que $f   \circ \alpha = g \circ \beta$, e se a seguinte propriedade universal é satisfeita: dados um outro objeto $z' \in \mathsf{C}$ e outros dois morfismos $f': x \to z'$ e $g': y \to z'$ tais que $f' \circ \alpha = g' \circ \beta$, existe um \emph{único} morfismo $h: z \to z'$ tal que $h \circ f = f'$ e $h \circ g = g'$, ou seja, $h$  fatora os morfismos $f'$ e $g'$ por $f$ e $g$, respectivamente.
+\end{defin}
+
+No contexto da definição acima, dizemos também por vezes que a tripla $(z,f,g)$ é um \textbf{pushout} para o span inicial em questão.
+Note que a condição $f \circ \alpha = g \circ \beta$ pode ser expressa graficamente por meio do quadrado comutativo abaixo.
+\begin{equation}
+  \label{eq:quadrado_pushout}
+  \begin{tikzcd}
+    w
+    \arrow[r, "\alpha"]
+    \arrow[d, "\beta" swap]
+    & x
+    \arrow[d, "f"]
+    \\ y
+    \arrow[r, "g" swap]
+    & z
+  \end{tikzcd}
 \end{equation}
-é um \textbf{pushout} se ele satisfaz a seguinte propriedade universal: se $z'$ é outro objeto, e $g': x \to z$ e $f': y \to z'$ são morfismos tais que $g' \circ \alpha' = f' \circ \beta'$, ou seja, tais que o diagrama abaixo seja comutativo;
+Ao invés de dizermos que a tripla $(z,f,g)$ é um pushout para o span inicial, também é bastante comum dizermos apenas que o diagrama comutativo acima é um pushout.
+
+Também é possível - e altamente vantajoso - interpretar a propriedade universal que caracteriza o pushout em termos de diagramas.
+Já vimos que um pushout $(z,f,g)$ determina um quadrado comutativo.
+O outro objeto $z'$ juntamente com os morfismos $f': x \to z'$ e $g': y \to z'$ também determinam um quadrado comutativo, já que por hipótese vale a igualdade $f' \circ \alpha = g' \circ \beta$.
+Os dois quadrados comutativos em questão podem ser combinados em um diagrama único como mostrado abaixo.
 \begin{displaymath}
-    \begin{tikzcd}
-        w
-        \arrow[r, "\alpha"]
-        \arrow[d, "\beta" swap]
-        & x
-        \arrow[d, "g"]
-        \arrow[rdd, bend left=15, "g'"]
-        \\ y
-        \arrow[r, "f" swap]
-        \arrow[rrd, bend right=15, "f'" swap]
-        & z
-        \\ & & z'
-    \end{tikzcd}
+  \begin{tikzcd}
+    w
+    \arrow[r, "\alpha"]
+    \arrow[d, "\beta" swap]
+    & x
+    \arrow[d, "f"]
+    \arrow[rdd, bend left=15, "f'"]
+    \\ y
+    \arrow[r, "g" swap]
+    \arrow[rrd, bend right=15, "g'" swap]
+    & z
+    \\ & & z'
+  \end{tikzcd}
 \end{displaymath}
-então existe um \emph{único} morfismo $\theta: z \to z'$ que satisfaça as igualdades $\theta \circ g = g'$ e $\theta \circ f = f'$, ou seja, que faça o diagrama abaixo comutar.
+O único morfismo $h: z \to z'$ induzido pela propriedade universal do pushout pode então ser representado pelo morfismo tracejado abaixo o qual faz o diagrama todo comutar.
 \begin{displaymath}
-    \begin{tikzcd}
-        w
-        \arrow[r, "\alpha"]
-        \arrow[d, "\beta" swap]
-        & x
-        \arrow[d, "g"]
-        \arrow[rdd, bend left=15, "g'"]
-        \\ y
-        \arrow[r, "f" swap]
-        \arrow[rrd, bend right=15, "f'" swap]
-        & z
-        \arrow[rd, dashed, "\theta" description]
-        \\ & & z'
-    \end{tikzcd}
+  \begin{tikzcd}
+    w
+    \arrow[r, "\alpha"]
+    \arrow[d, "\beta" swap]
+    & x
+    \arrow[d, "f"]
+    \arrow[rdd, bend left=15, "f'"]
+    \\ y
+    \arrow[r, "g" swap]
+    \arrow[rrd, bend right=15, "g'" swap]
+    & z
+    \arrow[rd, dashed, "h" description]
+    \\ & & z'
+  \end{tikzcd}
 \end{displaymath}
 
-Por vezes, diremos também que o diagrama
-\begin{equation}\label{eq:diagrama_pre-pushout}
-    \begin{tikzcd}
-        w
-        \arrow[r, "\alpha"]
-        \arrow[d, "\beta" swap]
-        & x
-        \\ y
-    \end{tikzcd}
-\end{equation}
-é um \textbf{diagrama de pré-pushout}, e que a tripla $(z,g,f)$ é um pushout do diagrama \eqref{eq:diagrama_pre-pushout}.
 
 Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa propriedade de unicidade a menos de isomorfismos.
 
@@ -637,3 +661,7 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
  \end{proof}
 
 \end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
