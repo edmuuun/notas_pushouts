@@ -97,8 +97,7 @@ O único morfismo $h: z \to z'$ induzido pela propriedade universal do pushout p
   \end{tikzcd}
 \end{displaymath}
 
-
-Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa propriedade de unicidade a menos de isomorfismos.
+Na Teoria de Categorias, objetos definidos por meio de propriedaddes universais satisfazem sempre algum tipo de unicidade a menos de isomorfismos, e isso não é diferente no caso de pushouts.
 
 \begin{prop}\label{prop:unicidade_pushout}
     Suponha que os dois diagramas abaixo sejam pushouts em uma categoria $\mathsf{C}$.
@@ -108,9 +107,9 @@ Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g"]
+            \arrow[d, "f"]
             \\ y
-            \arrow[r, "f" swap]
+            \arrow[r, "g" swap]
             & z
         \end{tikzcd}
         \qquad
@@ -119,13 +118,14 @@ Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g'"]
+            \arrow[d, "f'"]
             \\ y
-            \arrow[r, "f'" swap]
+            \arrow[r, "g'" swap]
             & z'
         \end{tikzcd}
     \end{displaymath}
-    Então existe um \emph{único} isomorfismo $\theta: z \to z'$ satisfazendo as igualdades $\theta \circ g = g'$ e $\theta \circ f = f'$.
+    Então existe um \emph{único} isomorfismo $\theta: z \to z'$ satisfazendo as igualdades $\theta \circ f = f'$ e $\theta \circ g = g'$.
+    Em outras palavras, quando um span admite um pushout, este é único a menos de isomorfismos.
 \end{prop}
 
 \begin{proof}
@@ -137,18 +137,18 @@ Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g"]
-            \arrow[rdd, bend left=15, "g"]
+            \arrow[d, "f"]
+            \arrow[rdd, bend left=15, "f"]
             \\ y
-            \arrow[r, "f" swap]
-            \arrow[rrd, bend right=15, "f" swap]
+            \arrow[r, "g" swap]
+            \arrow[rrd, bend right=15, "g" swap]
             & z
             \arrow[rd, "\id_z" description]
             \\ & & z
         \end{tikzcd}
     \end{displaymath}
     A propriedade universal do pushout no entanto garante que $\id_z$ é na verdade o \emph{único} morfismo do tipo $z \to z$ que faz tal diagrama comutar.
-    Assim, se $\varphi: z \to z$ é um morfismo que satisfaz as igualdades $\varphi \circ g = g$ e $\varphi \circ f = f$, então necessariamente devemos ter $\varphi = \id_z$.
+    Assim, se $\varphi: z \to z$ é um morfismo tal que $\varphi \circ f = f$ e $\varphi \circ g = g$, então necessariamente $\varphi = \id_z$.
 
     Vamos agora obter o isomorfismo em questão.
     A propriedade universal do pushout garante a existência de um único morfismo $\theta: z \to z'$ fazendo o diagrama abaixo comutar.
@@ -170,7 +170,7 @@ Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa
     \end{displaymath}
     
     Veja que $\theta$ satisfaz as duas igualdades impostas pelo enunciado.
-    Resta então mostrarmos que esse morfismo é na verdade um isomorfismo, e para isso vamos exibir explicitamente o morfismo inverso.
+    Resta então mostrarmos que $\theta$ é na verdade um isomorfismo, e para isso vamos exibir explicitamente o morfismo inverso.
     Usando novamente a propriedade universal do pushout obtemos o único morfismo $\theta': z' \to z$ fazendo o diagram abaixo comutar.
     \begin{displaymath}
         \begin{tikzcd}
@@ -190,41 +190,41 @@ Sendo definido por meio uma propriedade universal, pushouts satisfazem uma certa
     \end{displaymath}
 
     Vamos mostrar que $\theta$ e $\theta'$ são inversos.
-    O truque para mostrarmos a igualdade $\theta' \circ \theta = \id_z$ é usar a caracterização do morfismo idêntico $\id_z$ dada no primeiro parágrafo.
+    O truque para mostrarmos a igualdade $\theta' \circ \theta = \id_z$ é usarmos a caracterização do morfismo idêntico $\id_z$ discutida no primeiro parágrafo.
     Por um lado,
     \begin{displaymath}
         \theta' \circ \theta \circ f
         = \theta' \circ f' = f,
     \end{displaymath}
-    e analogamente,
+    e por outro,
     \begin{displaymath}
         \theta' \circ \theta \circ g
         = \theta' \circ g'
         = g.
     \end{displaymath}S
-    Segue então da conclusao do primeiro parágrafo que $\theta' \circ \theta = \id_z$.
-    A demonstração da validade da igualdade $\theta \circ \theta' = \id_{z'}$ é similar, pois, analogamente ao que ocorre com $\id_z$, o morfismo $\id_{z'}$ é caracterizado unicamente por satisfazer as igualdades $\id_{z'} \circ g' = g'$ e $\id_{z'} \circ f' = f'$.
+    Segue então da conclusão do primeiro parágrafo que $\theta' \circ \theta = \id_z$.
+    O morfismo idêntico $\id_{z'}$ possui uma caracterização ànlaoga àquela do morfismo $\id_z$: se $\psi: z' \to z'$ satisfaz $\psi \circ f' = f'$ e $\psi \circ g' = g'$, então necessariamente $\psi = \id_{z'}$.
     Assim, as sequências de igualdades
-    \begin{displaymath}
-        \theta \circ \theta' \circ g'
-        = \theta \circ g
-        = g'
-    \end{displaymath}
-    e
     \begin{displaymath}
         \theta \circ \theta' \circ f'
         = \theta \circ f
         = f'
     \end{displaymath}
-    implicam imediatamente a igualdade desejada.
+    e
+    \begin{displaymath}
+        \theta \circ \theta' \circ g'
+        = \theta \circ g
+        = g'
+    \end{displaymath}
+    implicam a igualdade $\theta \circ \theta' = \id_{z'}$ desejada.
 \end{proof}
 
-Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já podemos estudar um exemplo geral que pode ser especializado para diferentes contextos.
+Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já podemos estudar um exemplo geral que será posteriormente especializado para diferentes contextos.
 
 \begin{exem}
     Seja $\mathsf{C}$ uma categoria contendo um objeto inicial $0 \in \mathsf{C}$.
     Dados dois objetos quaisquer $x,\, y \in \mathsf{C}$, temos os morfismos únicos $!_x: 0 \to x$ e $!_y: 0 \to y$ associados ao objeto inicial em questão.
-    Suponha que o diagrama de pré-pushout
+    Considere o span abaixo,
     \begin{displaymath}
         \begin{tikzcd}
             0
@@ -234,7 +234,7 @@ Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já
             \\ y
         \end{tikzcd}
     \end{displaymath}
-    admita um pushout como abaixo.
+    e suponha que ele admita um pushout como mostrado abaixo.
     \begin{displaymath}
         \begin{tikzcd}
             0
@@ -251,8 +251,7 @@ Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já
     Afirmamos que nesse caso $z$ é um \emph{coproduto} dos objetos $x$ e $y$, sendo $i$ e $j$ as injeções canônicas.
     Podemos mostrar isso simplesmente verificando que a propriedade universal do coproduto é satisfeita.
     Seja $z'$ um outro objeto de $\mathsf{C}$ equipado com morfismos $i': x \to z'$ e $j': y \to z'$.
-    Como existe um único morfismo do tipo $0 \to z'$, os morfismos compostos $i' \circ !_x,\, j' \circ j' \circ !_y: 0 \to z'$ são iguais, ou seja, o ``quadrado externo'' no diagrama abaixo é comutativo.
-    A propriedade universal do coproduto implica então a existência de um único morfismo $h:z \to z'$ fazendo o diagrama todo comutar.
+    Como existe um único morfismo do tipo $0 \to z'$, os morfismos compostos $i' \circ !_x,\, j' \circ j' \circ !_y: 0 \to z'$ são iguais, portanto a propriedade universal do pushout garante a existência de um único morfismo $h: z \to z''$ fazendo comutar o diagram abaixo.
     \begin{displaymath}
         \begin{tikzcd}
             0
@@ -269,9 +268,9 @@ Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já
             \\ & & z'
         \end{tikzcd}
     \end{displaymath}
-    Em outras palavras, os morfismos $i'$ e $j'$ podem ser unicamente fatorados pelos morfismos $i$ e $j$, respectivamente, o que significa precisamente que a triple $(z,i,j)$ é um coproduto dos objetos $x$ e $y$.
+    Em outras palavras, os morfismos $i'$ e $j'$ podem ser unicamente fatorados pelos morfismos $i$ e $j$, respectivamente, o que significa precisamente que a tripla $(z,i,j)$ define um ocproduto de  $x$ e $y$.
 
-    Esse exemplo mostra que, em uma categoria que tenha um objeto inicial, coprodutos podem ser vistos como pushouts.
+    Esse exemplo mostra que, em uma categoria que contendo um objeto inicial, coprodutos podem ser vistos como pushouts.
     Dito de outra forma, um pushout pode ser visto como uma generalização de um coproduto.
     Mais adiante, veremos inclusive que, em categorias suficientemente ricas, pushouts podem ser construídos \emph{a partir} de coprodutos usando um certo tipo de quociente.
 \end{exem}
