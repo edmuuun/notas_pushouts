@@ -731,6 +731,45 @@ Por exemplo, se $\mathsf{J}$ é uma categoria contendo dois objetos $0$ e $1$ e 
 \end{displaymath}
 onde $c_0 \coloneqq F(0)$, $c_1 \coloneqq F(1)$ e $f \coloneqq F(\alpha)$.\footnote{Note que o funtor $F: \mathsf{J} \to \mathsf{C}$ fica totalmente determinado nesse caso pela escolha de um morfismo na categoria $\mathsf{C}$. Por esse motivo a categoria $\mathsf{J}$ usada nesse exemplo, a qual é mais comumente denotada por $[1]$, é chamada de \textbf{morfismo ambulante} ou \textbf{seta ambulante}. A caegoria de funtores $\mathsf{C}^{[1]}$ é então chamada de \textbf{categoria de morfismos de $\mathsf{C}$} ou \textbf{categoria de setas de $\mathsf{C}$}.}
 
+Dissemos no início que um colimite representa a forma mais ``simples'' de obtermos morfismos para ``fora'' de um diagrama.
+O significado preciso de ``fora'' é dado pela noção de um cone sob um funtor/diagrama.
+Dado um funtor $F: \mathsf{J} \to \mathsf{C}$ e um objeto $c \in \mathsf{C}$, um \textbf{cone sob $F$ com vértice em $c$} é por definição uma transformação linear $\theta: F \Rightarrow \Delta(c)$.
+Levando em conta a definição do funtor constante $\Delta(c)$, vemos então que um cone sob $F$ com vértice $c$ é determinado por uma tupla de morfismos $(\theta_j: F(j) \to c = \Delta(c)(j))_{j \in \mathsf{J}}$ satisfazendo a seguinte condição de comutatividade: dado qualquer morfismo $\alpha: j_1 \to j_2$ em $\mathsf{J}$, vale a igualdade $\theta_{j_2} \circ F(\alpha) = \theta_{j_1}$, o que pode ser visualizado no diagrama de formato cônico abaixo.
+\begin{displaymath}
+  \begin{tikzcd}
+    F(j_1)
+    \arrow[rr, "F(\alpha)"]
+    \arrow[rd, "\theta_{j_1}" swap]
+    & & F(j_2)
+    \arrow[ld, "\theta_{j_2}"]
+    \\ & c
+  \end{tikzcd}
+\end{displaymath}
+
+Se a noção de cone sob um diagrama formaliza a ideia de mapearmos para fora de um diagrama, a fim de definirmos a forma mais ``simples'' de fazer isso, precisamos destacar algum cone universal dentre todos os possíveis, e isso exige que possamos falar de todos os cones ao mesmo tempo.
+A maneira de formalizarmos isso é usando o bom e velho funtor hom.
+Lembre-se de que exigimos que as categorias $\mathsf{J}$ e $\mathsf{C}$ fossem, respectivamente, pequena e localmente pequena, o que garante que a categoria de funtores $\mathsf{C^J}$ também seja localmente pequena.
+Temos então o funtor hom usual $\mathsf{C^J}(F,-): \mathsf{C^J} \to \mathsf{Set}$ que associa a um funtor $G: \mathsf{J} \to \mathsf{C}$ o conjunto de transformações naturais do tipo $F \Rightarrow G$, e que associa a uma transformação natural $\phi: G \Rightarrow H$ a \emph{função} pushforward $\mathsf{C^J}(F,\phi): \mathsf{C^J}(F,G) \to \mathsf{C^J}(F,H)$ ao longo de $\phi$.
+Combinando este funtor hom com o funtor diagonal $\Delta: \mathsf{C} \to \mathsf{C^J}$ introduzido anteriormente obtemos o chamado \textbf{funtor de cones sob $F$} $\mathrm{Cone}^F: \mathsf{C} \to \mathsf{Set}$.
+\begin{displaymath}
+  \begin{tikzcd}[column sep=1.25cm]
+    \mathsf{C}
+    \arrow[r, "\Delta"]
+    \arrow[rr, dashed, bend right=20, "\mathrm{Cone}^F" swap]
+    & \mathsf{C^J}
+    \arrow[r, "{\mathsf{C^J}(F,-)}"]
+    & \mathsf{Set}
+  \end{tikzcd}
+\end{displaymath}
+
+Temos enfim todos os ingredientes necessários para definirmos um colimite.
+
+\begin{defin}[Colimite]
+  \label{defin:colimite}
+  Sejam $\mathsf{J}$ uma categoria pequena e $\mathsf{C}$ uma categoria localmente pequena.
+  Dizemos que um funtor $F: \mathsf{J} \to \mathsf{C}$ \textbf{admite um pushout} se o funtor $\mathrm{Cone}^F : \mathsf{C} \to \mathsf{Set}$ de cones sob $F$ é representável.
+  Se $c \in \mathsf{C}$ é um objeto representante para este funtor, então escrevemos $c = \colim_F$ e dizemos que $c$ é um \textbf{colimite} do funtor $F$.
+\end{defin}
 
 \printbibliography
 
