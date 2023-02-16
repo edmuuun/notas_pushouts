@@ -3,6 +3,7 @@
 \usepackage{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1.35in]{geometry}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
 \usepackage{mathtools,amssymb,amsthm}
 \usepackage{indentfirst}
 \usepackage{hyperref}
@@ -11,6 +12,8 @@
 \usepackage[capitalize,noabbrev]{cleveref}
 
 \usetikzlibrary{babel}
+
+\addbibresource{bibliografia.bib}
 
 \swapnumbers
 \newtheorem{teo}{Teorema}[section]
@@ -44,3 +47,7 @@
 \title{Notas sobre pushouts}
 \author{Edmundo Martins}
 \date{\today}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End:

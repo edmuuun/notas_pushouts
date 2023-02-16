@@ -6,7 +6,7 @@
 
 \begin{abstract}
     Estas notas contêm uma exposição básica do conceito categórico de pushout.
-    O foco principal de estudo são pushqouts na categorias de espaços e funções contínuas, mas isso naturalmente requer o estudo de algumas propriedades gerais de pushouts, assim como o estudo de propriedades particulares de pushouts na categoria de conjuntos.
+    O foco principal de estudo são pushouts na categorias de espaços e funções contínuas, mas isso naturalmente requer o estudo de algumas propriedades gerais de pushouts, assim como o estudo de propriedades particulares de pushouts na categoria de conjuntos.
     Após isso, aplicamos os resultados obtidos para obter propriedades de algumas construções topológicas que aparecem com frequência na Topologia Algébrica.
 \end{abstract}
 
@@ -278,9 +278,9 @@ Veremos diversos exemplos concretos de pushouts ao longo do texto, mas desde já
 \subsection{Propriedades gerais}
 
 O objetivo dessa seção é demonstrar algumas propriedades de pushouts que são válidas em qualquer categoria.
-Posteriormente, estudaremos pushouts em exemplos particulares de categorias e teremos a oportunidade de aplicar tais resultados a exemplos concretos.
+Posteriormente, teremos a oportunidade de aplicar tais resultados quando estudarmos pushouts em algumas categorias particulares.
 
-O primeiro resultado oferece uma receita para a construção de pushouts em categorias suficientemente ricas relacionando-o com coprodutos e coequalizadores.
+O primeiro resultado oferece uma receita para a construção de pushouts em termos de  coprodutos e coequalizadores.
 
 \begin{teo}
    Considere o diagrama abaixo em uma categoria $\mathsf{C}$.
@@ -314,20 +314,20 @@ O primeiro resultado oferece uma receita para a construção de pushouts em cate
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g"]
+            \arrow[d, "f"]
             \\ y
-            \arrow[r, "f" swap]
+            \arrow[r, "g" swap]
             & z
         \end{tikzcd}
     \end{displaymath}
-    Os morfismos $g$ e $f$ induzem um morfismo $\langle g,f \rangle: x +y \to z$ por meio da propriedade universal do coproduto.
+    Os morfismos $f$ e $g$ induzem um morfismo $\langle f,g \rangle: x +y \to z$ por meio da propriedade universal do coproduto.
     Vamos mostrar que esse morfismo induzido é o coequalizador desejado.
     Note, em primeiro lugar, que ele coequaliza os morfismos necessários, pois
     \begin{align*}
-        \langle g,f \rangle \circ i_1 \circ \alpha
-        & = g \circ \alpha \\
-        & = f \circ \beta \\
-        & = \langle g,f \rangle \circ i_2 \circ \beta.
+        \langle f,g \rangle \circ i_1 \circ \alpha
+        & = f \circ \alpha \\
+        & = g \circ \beta \\
+        & = \langle f,g \rangle \circ i_2 \circ \beta.
     \end{align*}
     Em outras palavras, temos o diagrama comutativo abaixo.
     \begin{displaymath}
@@ -336,62 +336,62 @@ O primeiro resultado oferece uma receita para a construção de pushouts em cate
             \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
             \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
             & x+y
-            \arrow[r, "{\langle g,f \rangle}"]
+            \arrow[r, "{\langle f,g \rangle}"]
             & z
         \end{tikzcd}
     \end{displaymath}
 
-    Precisamos mostrar que, se $p: x+y \to z'$ é outro morfismo coequalizando $i_1 \circ \alpha$ e $i_2 \circ \beta$, então existe um único morfismo $h: z \to z'$ tal que $h \circ \langle g,f \rangle = p$.
+    Agora, temos que mostrar que, se $p: x+y \to z'$ é outro morfismo coequalizando $i_1 \circ \alpha$ e $i_2 \circ \beta$, então existe um único morfismo $h: z \to z'$ tal que $h \circ \langle f,g  \rangle = p$, o que pode ser expresso pela comutatividade do diagrama abaixo.
     \begin{displaymath}
         \begin{tikzcd}
             w
             \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
             \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
             & x+y
-            \arrow[r, "{\langle g,f \rangle}"]
+            \arrow[r, "{\langle f,g \rangle}"]
             \arrow[rd, "p" swap]
             & z
             \arrow[d, dashed, "h"]
             \\ & & z'
         \end{tikzcd}
     \end{displaymath}
-    Note que, como os morfismos $p$ e $h \circ \langle g,f \rangle$ têm como domínio o coproduto $x+y$, a propriedade universal do produto garante a seguinte equaivalência:
+    Note que, como os morfismos $p$ e $h \circ \langle f,g \rangle$ têm $x+y$ como domínio, a propriedade universal do coproduto garante a seguinte equivalência:
     \begin{displaymath}
-        p = h \circ \langle g,f \rangle
+        p = h \circ \langle f,g \rangle
         \iff
         \begin{cases}
-            p \circ i_1 = h \circ \langle g,f \rangle \circ i_1 \\
-            p \circ i_2 = h \circ \langle g,f \rangle \circ i_2.
+            p \circ i_1 = h \circ \langle f,g \rangle \circ i_1 \\
+            p \circ i_2 = h \circ \langle f,g \rangle \circ i_2.
         \end{cases}
     \end{displaymath}
-    Usando as igualdades que definem o morfismo induzido $\langle g,f \rangle$, a equivalência acima pode ser reescrita da seguinte maneira:
+    Usando as igualdades que definem o morfismo induzido $\langle f,g \rangle$ podemos reescrever a esquivalência acima  da seguinte maneira:
     \begin{displaymath}
-        p = h \circ \langle g,f \rangle \iff
+        p = h \circ \langle f,g \rangle \iff
         \begin{cases}
-            p \circ i_1 = h \circ g \\
-            p \circ i_2 = h \circ f.
+            p \circ i_1 = h \circ f \\
+            p \circ i_2 = h \circ g.
         \end{cases}
     \end{displaymath}
     
     Vamos então construir o morfismo desejado.
-    Como por hipótese $p$ satisfaz a igualdade $p \circ i_1 \circ \alpha = p \circ i_2 \circ \beta$, o ``quadrado exterior'' no diagrama abaixo é comutativo, portanto a propriedade universal do pushout garante a existência de um único morfismo $h: z \to z'$ fazendo o diagrama todo comutar.
+    Como $p$ satisfaz a igualdade $p \circ i_1 \circ \alpha = p \circ i_2 \circ \beta$ por hipótese, a propriedade universal do pushout garante a existência de um único morfismo $h: z \to z'$ fazendo o diagrama abaixo comutar.
     \begin{displaymath}
         \begin{tikzcd}
             w
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g"]
+            \arrow[d, "f"]
             \arrow[rdd, bend left=15, "p \circ i_1"]
             \\ y
-            \arrow[r, "f" swap]
+            \arrow[r, "g" swap]
             \arrow[rrd, bend right=15, "p \circ i_2" swap]
             & z
             \arrow[rd, dashed, "h" description]
             \\ & & z'
         \end{tikzcd}
     \end{displaymath}
-    Segue da comutatividade do diagrama que esse único morfismo $h$ é exatamente o morfismo procurado.
+    É imediato da comutatividade acima que esse único morfismo $h$ é exatamente o que estamos procurando.
 
     Reciprocamente, suponha agora que os morfismos $i_1 \circ \alpha,\, i_2 \circ \beta: w \to x+y$ admitam um coequalizador $p: x+y \to z$.
     Vamos mostrar então que o diagrama abaixo é um pushout.
@@ -408,7 +408,12 @@ O primeiro resultado oferece uma receita para a construção de pushouts em cate
         \end{tikzcd}
     \end{displaymath}
     Seja $z'$ um outro objeto juntamente com morfismos $j_1: x \to z'$ e $j_2: y \to z'$ satisfazendo a igualdade $j_1 \circ \alpha = j_2 \circ \beta$.
-    Isso garante que o morfismo $\langle j_1,j_2 \rangle: x+y \to z'$ induzido pela propriedade universal do coproduto coequaliza os morfismos paralelos $i_1 \circ \alpha$ e $i_2 \circ \beta$; portanto a propriedade universal do coequalizador garante a existência de um único morfismo $h: z \to z'$ fazendo o diagram abaixo comutar.
+    Veja então que
+    \begin{displaymath}
+      \langle j_1,j_2 \rangle \circ i_1 \circ \alpha = j_1 \circ \alpha = j_2 \circ \beta = \langle j_1,j_2 \rangle \circ i_2 \circ \beta,
+    \end{displaymath}
+    ou seja, o morfismo $\langle j_1, j_2 \rangle: x+y \to z'$ induzido pela propriedade universal do coproduto coequaliza os morfismos $i_1 \circ \alpha$ e $i_2 \circ \beta$.
+    A propriedade universal do coequalizador garante então a existência de um único morfismo $h: z \to z'$ fazendo o diagram abaixo comutar.
     \begin{displaymath}
         \begin{tikzcd}
             w
@@ -422,13 +427,23 @@ O primeiro resultado oferece uma receita para a construção de pushouts em cate
             \\ & & z'
         \end{tikzcd}
     \end{displaymath}
-    Vemos então que
+    Vemos então que por um lado
     \begin{displaymath}
         h \circ p \circ i_1
         = \langle j_1,j_2 \rangle \circ i_1
-        = i_1,
+        = j_1,
     \end{displaymath}
-    e analgoamente também podemos mostrar que $h \circ p \circ i_2 = j_2$; portanto $h$ é exatamente o morfismo desejado.
+    enquanto por outro
+    \begin{displaymath}
+      h \circ p \circ i_2
+      = \langle j_1,j_2 \rangle \circ i_2
+      = j_2;
+    \end{displaymath}
+    mostrando que $h$ satisfaz as condições de comutatividade necessárias.
+
+    A fim de concluirmos que a tripla $(z,p \circ i_1, p \circ i_2)$ é o pushout desejado, resta apenas mostrarmos que o morfismo $h$ obtido acima é na verdade o único satisfazendo as condições necessárias.
+    Suponha então que $h': z \to z'$ também seja tal que $h' \circ p \circ i_1 = j_1$ e $h' \circ p \circ i_2 = j_2$.
+    Segue da unicidade na propriedade universal do coproduto que $h' \circ p = \langle j_1,j_2 \rangle$, mas como $h$ foi obtido da propriedade universal do coequalizador, segue dessa última igualdade que $h'=h$.
 \end{proof}
 
 Nosso próximo resultado mostra quais propriedades de um morfismo são preservadas em um diagrama de pushout.
@@ -658,6 +673,66 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
    sendo que a primeira igualdade segue da comutatividade do quadrado direito em \eqref{eq:colagem-pushout-diag-1}, enquanto a segunda vale por hipótese.
    Deduzimos disso que $\theta' \circ \delta = \lambda$, o que juntamente com a igualdade $\theta' \circ h = \varphi$ implica a igualdade $\theta' = \theta$ desejada.
  \end{proof}
+
+\section{As muitas vidas de um pushout}
+\label{sec:vidas_pushout}
+
+\subsection{Um (co?)epsilon de colimites}
+\label{sec:revisao_colimites}
+
+Esta subseção contém uma revisão muito breve da definição de colimite de um funtor.
+O leitor que nunca tenha encontrado esse conceito provavelmente se beneficiará  mais de uma leitura do capítulo 3 do livro \cite{cat_riehl}.
+
+A noção de colimite é uma das formas mais úteis de construirmos novos objetos em uma categoria.
+Intuitivamente, um colimite representa a forma ``universal'' de mapearmos para ``fora'' de um diagram.
+Existem diferentes maneiras de definir tal conceito, e aqui faremos isso usando a noção de funtor representável.
+
+Sejam $\mathsf{J}$ uma categoria pequena e $\mathsf{C}$ uma categoria localmente pequena.
+Um objeto qualquer $c \in \mathsf{C}$ determina um funtor $\Delta(c): \mathsf{J} \to \mathsf{C}$ definido da seguinte maneira: se $j \in \mathsf{J}$ é um objeto, então $\Delta(c)(j) \coloneqq c$, e se $\alpha: j_1 \to j_2$ é um morfismo em $\mathsf{J}$, então $\Delta(c)(\alpha) \coloneqq \id_c: \Delta(c)(j_1) \to \Delta(c)(j_2)$.
+O funtor $\Delta(c)$ assim definido é chamado \textbf{funtor constante e igual a $c$}.
+
+É natural nos indagarmos sobre a dependência dessa construção do objeto $c$ fixado incialmente.
+Se $c' \in \mathsf{C}$ é outro objeto, e $f: c \to c'$ é um morfismo, então $f$ é um morfismo do tipo $\Delta(c)(j) \to \Delta_(c')(j)$ para todo $j \in \mathsf{J}$.
+Além disso, se $\alpha: j_1 \to j_2$ é um morfismo em $\mathsf{J}$, temos as igualdades
+\begin{displaymath}
+  f \circ \Delta(c)(\alpha) = f \circ \id_c = f = \id_{c'} \circ f = \Delta(c')(\alpha) \circ f,
+\end{displaymath}
+o que pode ser representado pelo quadrado comutativo abaixo.
+\begin{displaymath}
+  \begin{tikzcd}[column sep=1.5cm]
+    \Delta(c)(j_1) = c
+    \arrow[r, "\Delta(c)(\alpha) = \id_c"]
+    \arrow[d, "f" swap]
+    & \Delta(c)(j_2) = c
+    \arrow[d, "f"]
+    \\ \Delta(c')(j_1) = c'
+    \arrow[r, "\Delta(c')(\alpha) = \id_{c'}" swap]
+    & \Delta(c')(j_2) = c'
+  \end{tikzcd}
+\end{displaymath}
+Em outras palavras, a tupla de morfismos $(f: \Delta(c)(j) \to \Delta(c')(j))_{j \in \mathsf{J}}$ define uma transformação natural do tipo $\Delta(c) \Rightarrow \Delta(c')$, a qual denotaremos por $\Delta(f)$.
+
+Até o momento, vimos que um objeto $c \in \mathsf{C}$ dá origem a um funtor constante $\Delta(c): \mathsf{J} \to \mathsf{C}$, e que um morfismo $f: c \to c'$ dá origem a uma transformação natural $\Delta(f): \Delta(c) \Rightarrow \Delta(c')$ entre os funtores constantes correspondentes.
+Lembrando que funtores do tipo $\mathsf{J} \to \mathsf{C}$ e transformações naturais entre eles são, respectivamente, os objetos e morfismos da categoria de funtores $\mathsf{C^J}$, é de se esperar que a associação $c \mapsto \Delta(c)$ e $(f: c \to c') \mapsto (\Delta(f): \Delta(c) \Rightarrow \Delta(c'))$ defina ela própria um funtor do tipo $\mathsf{C} \to \mathsf{C^J}$.
+De fato, se considerarmos o morfismo idêntico $\id_c: c \to c$, então a $j$-ésima componente da transformação natural $\Delta(\id_c): \Delta(c) \Rightarrow \Delta(c)$ é por definição igual a $\id_c$, portanto $\Delta(\id_c)$ é igual à transformação natural idêntica $\id_{\Delta(c)}$ do funtor $\Delta(c)$ para si mesmo.
+Além disso, dados dois morfismos $f: c_1 \to c_2$ e $g: c_2 \to c_3$ na categoria $\mathsf{C}$, a $j$-ésima componente da transformação $\Delta(g \circ f): \Delta(c_1) \Rightarrow \Delta(c_3)$ é por definição igual $g \circ f$, ou seja, $\Delta(g \circ f)_j = \Delta(g)_j \circ \Delta(f)_j$; portanto $\Delta(g \circ f)$ é igual à composição de transformações naturais $\Delta(g) \circ \Delta(f)$.
+O funtor $\mathsf{C} \to \mathsf{C^J}$ assim definido, o qual denotaremos por $\Delta$, é chamado de \textbf{funtor diagonal}.
+
+Agora, considere um funtor $F: \mathsf{J} \to \mathsf{C}$.
+No contexto do estudo de limites e colimites, é comum nos referirmos a funtor deste tipo como um \textbf{diagrama comutativo do tipo $\mathsf{J}$ na categoria $\mathsf{C}$}.
+Essa nomenclatura faz sentido porque, especialmente no caso em que a categoria $\mathsf{J}$ é finita, podemos visualizar $F$ como um diagrama formado por objetos e morfismos de $\mathsf{C}$.
+Por exemplo, se $\mathsf{J}$ é uma categoria contendo dois objetos $0$ e $1$ e um único morfismo não idêntico $\alpha: 0 \to 1$, então um funtor $F: \mathsf{J} \to \mathsf{C}$ é o mesmo que um diagrama em $\mathsf{C}$ da forma
+\begin{displaymath}
+  \begin{tikzcd}
+    c_0
+    \arrow[r, "f"]
+    & c_1,
+  \end{tikzcd}
+\end{displaymath}
+onde $c_0 \coloneqq F(0)$, $c_1 \coloneqq F(1)$ e $f \coloneqq F(\alpha)$.\footnote{Note que o funtor $F: \mathsf{J} \to \mathsf{C}$ fica totalmente determinado nesse caso pela escolha de um morfismo na categoria $\mathsf{C}$. Por esse motivo a categoria $\mathsf{J}$ usada nesse exemplo, a qual é mais comumente denotada por $[1]$, é chamada de \textbf{morfismo ambulante} ou \textbf{seta ambulante}. A caegoria de funtores $\mathsf{C}^{[1]}$ é então chamada de \textbf{categoria de morfismos de $\mathsf{C}$} ou \textbf{categoria de setas de $\mathsf{C}$}.}
+
+
+\printbibliography
 
 \end{document}
 %%% Local Variables:
