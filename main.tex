@@ -19,11 +19,11 @@
   \begin{equation}
     \label{eq:diagrama_span}
     \begin{tikzcd}
-      w
-      \arrow[r, "\alpha"]
-      \arrow[d, "\beta" swap]
-      & x
-      \\ y
+       w
+       \arrow[r, "\alpha"]
+       \arrow[d, "\beta" swap]
+       & x
+       \\ y
     \end{tikzcd}
   \end{equation}
   onde $w$, $x$ e $y$ são objetos de $\mathsf{C}$, e $\alpha$ e $\beta$ são morfismos desta mesma categoria.
@@ -158,11 +158,11 @@ Na Teoria de Categorias, objetos definidos por meio de propriedaddes universais 
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g"]
-            \arrow[rdd, bend left=15, "g'"]
+            \arrow[d, "f"]
+            \arrow[rdd, bend left=15, "f'"]
             \\ y
-            \arrow[r, "f" swap]
-            \arrow[rrd, bend right=15, "f'" swap]
+            \arrow[r, "g" swap]
+            \arrow[rrd, bend right=15, "g'" swap]
             & z
             \arrow[rd, dashed, "\theta" description]
             \\ & & z'
@@ -178,11 +178,11 @@ Na Teoria de Categorias, objetos definidos por meio de propriedaddes universais 
             \arrow[r, "\alpha"]
             \arrow[d, "\beta" swap]
             & x
-            \arrow[d, "g'"]
-            \arrow[rdd, bend left=15, "g"]
+            \arrow[d, "f'"]
+            \arrow[rdd, bend left=15, "f"]
             \\ y
-            \arrow[r, "f'" swap]
-            \arrow[rrd, bend right=15, "f" swap]
+            \arrow[r, "g'" swap]
+            \arrow[rrd, bend right=15, "g" swap]
             & z'
             \arrow[rd, dashed, "\theta'" description]
             \\ & & z
@@ -201,9 +201,9 @@ Na Teoria de Categorias, objetos definidos por meio de propriedaddes universais 
         \theta' \circ \theta \circ g
         = \theta' \circ g'
         = g.
-    \end{displaymath}S
+    \end{displaymath}
     Segue então da conclusão do primeiro parágrafo que $\theta' \circ \theta = \id_z$.
-    O morfismo idêntico $\id_{z'}$ possui uma caracterização ànlaoga àquela do morfismo $\id_z$: se $\psi: z' \to z'$ satisfaz $\psi \circ f' = f'$ e $\psi \circ g' = g'$, então necessariamente $\psi = \id_{z'}$.
+    O morfismo idêntico $\id_{z'}$ possui uma caracterização análoga àquela do morfismo $\id_z$: se $\psi: z' \to z'$ satisfaz $\psi \circ f' = f'$ e $\psi \circ g' = g'$, então necessariamente $\psi = \id_{z'}$.
     Assim, as sequências de igualdades
     \begin{displaymath}
         \theta \circ \theta' \circ f'
@@ -283,7 +283,7 @@ Posteriormente, teremos a oportunidade de aplicar tais resultados quando estudar
 O primeiro resultado oferece uma receita para a construção de pushouts em termos de  coprodutos e coequalizadores.
 
 \begin{teo}
-   Considere o diagrama abaixo em uma categoria $\mathsf{C}$.
+   Considere o span abaixo em uma categoria $\mathsf{C}$.
    \begin{displaymath}
     \begin{tikzcd}
         w
@@ -439,11 +439,42 @@ O primeiro resultado oferece uma receita para a construção de pushouts em term
       = \langle j_1,j_2 \rangle \circ i_2
       = j_2;
     \end{displaymath}
-    mostrando que $h$ satisfaz as condições de comutatividade necessárias.
+    mostrando que $h$ faz comutar o diagram abaixo.
+    \begin{displaymath}
+      \begin{tikzcd}
+         w
+         \arrow[r, "\alpha"]
+         \arrow[d, "\beta" swap]
+          & x
+          \arrow[d, "p \circ i_1"]
+          \arrow[rdd, bend left=30, "j_1"]
+          \\ y
+          \arrow[r, "p \circ i_2" swap]
+          \arrow[rrd, bend right=30, "j_2" swap]
+          & z
+          \arrow[rd, dashed, "h" description]
+          \\ & & z'
+      \end{tikzcd}
+    \end{displaymath}
 
-    A fim de concluirmos que a tripla $(z,p \circ i_1, p \circ i_2)$ é o pushout desejado, resta apenas mostrarmos que o morfismo $h$ obtido acima é na verdade o único satisfazendo as condições necessárias.
-    Suponha então que $h': z \to z'$ também seja tal que $h' \circ p \circ i_1 = j_1$ e $h' \circ p \circ i_2 = j_2$.
-    Segue da unicidade na propriedade universal do coproduto que $h' \circ p = \langle j_1,j_2 \rangle$, mas como $h$ foi obtido da propriedade universal do coequalizador, segue dessa última igualdade que $h'=h$.
+    A fim de concluirmos que a tripla $(z,p \circ i_1, p \circ i_2)$ é o pushout desejado, resta apenas mostrarmos que o morfismo $h$ obtido é na verdade o único que faz comutar o diagram acima.
+    Suponha então que $h': z \to z'$ também satisfaça as igualdades $h' \circ p \circ i_1 = j_1$ e $h' \circ p \circ i_2 = j_2$.
+    Segue da unicidade na propriedade universal do coproduto que $h' \circ p = \langle j_1,j_2 \rangle$, ou seja, tanto $h$ quanto $h'$ fazem comutar o diagram abaixo.
+     \begin{displaymath}
+        \begin{tikzcd}
+            w
+            \arrow[r, shift left=1.25, "i_1 \circ \alpha"]
+            \arrow[r, shift right=1.25, "i_2 \circ \beta" swap]
+            & x+y
+            \arrow[r, "p"]
+            \arrow[rd, "{\langle j_1,j_2 \rangle}" swap]
+            & z
+            \arrow[d, shift right=1.25, "h" swap]
+            \arrow[d, shift left=1.25, "h'"]
+            \\ & & z'
+        \end{tikzcd}
+      \end{displaymath}
+      Ora, como $h$ foi obtido por meio da propriedade universal do coequalizador, ele é na verdade o único a satisfazer tal condição de comutatividade, ou seja, devemos ter $h'= h$.
 \end{proof}
 
 Nosso próximo resultado mostra quais propriedades de um morfismo são preservadas em um diagrama de pushout.
