@@ -633,7 +633,7 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
      \end{tikzcd}
    \end{equation}
 
-   Se no diagrama \eqref{eq:colagem-pushout-diag-1} o quadrado da esquerda é um pushout, então as seguintes afirmações são equivalentes:
+  Suponha que o quadrado da esquerda no diagrama \eqref{eq:colagem-pushout-diag-1} seja um pushout. Nessas condições, as seguintes afirmações são equivalentes:
    \begin{enumerate}
    \item o quadrado da direita no diagrama \eqref{eq:colagem-pushout-diag-2} é um pushout;
    \item o diagrama \eqref{eq:colagem-pushout-diag-2} é um pushout.
@@ -658,9 +658,17 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
        \\ & & z'
      \end{tikzcd}
    \end{displaymath}
+   Nosso objetivo é mostrar a existência de um único morfismo $\theta: z \to z'$ satisfazendo as igualdades
+   \begin{equation}
+     \label{eq:colagem-pushout-objetivo-1}
+     \begin{cases}
+       \theta \circ h = \varphi \\
+       \theta \circ \delta \circ \gamma = \psi.
+      \end{cases}
+   \end{equation}
 
-   Note que a ``camada externa'' do diagrama abaixo também é comutativa, e como o quadrado esquerdo em \eqref{eq:colagem-pushout-diag-1} é um pushout, obtemos um único morfismo $\lambda: y \to z'$ fazendo comutar todo o diagram abaixo.
-   \begin{displaymath}
+   Note que a igualdade satisfeita pelos morfismos $\varphi$ e $\psi$ significa que a ``camada externa'' do diagrama abaixo é comutativa, e como o quadrado em questão é um pushout por hipótese, obtemos um único morfismo $\lambda: y \to z'$ fazendo comutar todo o diagram abaixo.
+   \begin{equation}\label{eq:colagem-pushout-morfismo-lambda}
      \begin{tikzcd}
        u
        \arrow[r, "\alpha"]
@@ -675,9 +683,10 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
        \arrow[rd, dashed, "\lambda" description]
        \\ & & z'
      \end{tikzcd}
-   \end{displaymath}
-   O morfismo $\lambda$ por sua vez faz comutar a camada externa do diagrama abaixo, e como o quadrado direito em \eqref{eq:colagem-pushout-diag-2} é também um pushout por hipótese, obtemos um único morfismo $\theta: z \to z'$ fazendo comutar todo o diagrama.
-   \begin{displaymath}
+   \end{equation}
+
+   O morfismo $\lambda$, por sua vez, faz comutar a camada externa do diagrama abaixo, e o quadrado abaixo também é um pushout por hipótese,logo obtemos um único morfismo $\theta: z \to z'$ fazendo comutar todo o diagrama abaixo.
+   \begin{equation}\label{eq:colagem-pushout-morfismo-theta}
      \begin{tikzcd}
        v
        \arrow[r, "\beta"]
@@ -692,26 +701,24 @@ Nosso próximo resultado mostra quais propriedades de um morfismo são preservad
        \arrow[rd, dashed, "\theta" description]
        \\ & & z'
      \end{tikzcd}
-   \end{displaymath}
+   \end{equation}
 
-   Veja que a igualdade $\theta \circ h = \varphi$ segue imediatamente da comutatividade acima.
-   Além disso, também temos
+   Vamos mostrar que o morfismo $\theta$ satisfaz as igualdades mencionadas em \eqref{eq:colagem-pushout-objetivo-1}.
+   Por um lado, a igualdade $\theta \circ h = \varphi$ segue imediatamente do diagrama comutativo que foi usado acima na definição do morfismo $\theta$; enquanto por outro temos a sequência de igualdades
    \begin{displaymath}
-     \theta \circ \delta \circ \gamma
-     = \lambda \circ \gamma
-     = \psi,
+     \theta \circ \delta \circ \gamma = \lambda \circ \gamma = \psi,
    \end{displaymath}
-   onde a primeira igualdade segue da definição de $\theta$, e a segunda segue da definição de $\lambda$.
-   Isso significa que o morfismo $\theta$ satisfaz as condições de comutatividade necessárias, mas ainda temos que mostrar que ele é o único possuindo tais propriedades.
-   Suponha então que $\theta': z \to z'$ seja outro morfismo satisfazendo as igualdades $\theta' \circ h = \varphi$ e $\theta' \circ \delta \circ \gamma = \psi$.
-   Usando a forma como $\theta$ foi definido, é suficiente mostrarmos que $\theta'$ também satisfaz a igualdade $\theta' \circ \delta = \lambda$.
-   O morfismo $\lambda$, por sua vez, é unicamente caracterizado pelas igualdades $\lambda \circ \gamma = \psi$ e $\lambda \circ g = \varphi \circ \beta$.
-   Ora, por um lado $\theta'$ ja satisfaz a igualdade $\theta' \circ \delta \circ \gamma = \psi$ por hipótese, e por outro
+   onde usamos a comutatividade dos diagramas de definição dos morfismos $\theta$ e $\lambda$, respectivamente.
+
+   Tendo mostrado que o morfismo $\theta$ satisfaz as igualdades necessárias, resta mostrarmos que ele é na verdade o único a satsifazê-las.
+   Suponha então que $\theta': z \to z'$ seja um outro morfismo satisfazendo $\theta' \circ h = \varphi$ e $\theta' \circ \delta \circ \gamma = \psi$.
+   Lembrando que o morfismo $\theta$ foi obtido pela propriedade universal do pushout no diagrama \eqref{eq:colagem-pushout-morfismo-theta}, a unicidade nessa propriedade garante que, a fim de mostrarmos que $\theta = \theta'$, é suficiente mostrarmos que $\theta'$ também satisfaz as igualdades
    \begin{displaymath}
-     \theta' \circ \delta \circ g = \theta' \circ h \circ \beta = \varphi \circ \beta,
+     \begin{cases}
+       \theta' \circ h = \varphi, \\
+       \theta' \circ \delta = \lambda.
+     \end{cases}
    \end{displaymath}
-   sendo que a primeira igualdade segue da comutatividade do quadrado direito em \eqref{eq:colagem-pushout-diag-1}, enquanto a segunda vale por hipótese.
-   Deduzimos disso que $\theta' \circ \delta = \lambda$, o que juntamente com a igualdade $\theta' \circ h = \varphi$ implica a igualdade $\theta' = \theta$ desejada.
  \end{proof}
 
 \section{As muitas vidas de um pushout}
